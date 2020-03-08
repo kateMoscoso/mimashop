@@ -9,7 +9,9 @@
         v-for="favorite in favorites"
         :key="favorite.id"
       >
-        <favorite :favorite="favorite" />
+        <favorite
+          :favorite="favorite"
+        />
       </v-list-item>
     </v-list>
   </div>
@@ -23,20 +25,12 @@ export default {
     Favorite
   },
   props: {
-    product: {
-      type: Object,
-      default: () => ({})
+    favorites: {
+      type: Array,
+      default() {
+        return []
+      }
     }
-  },
-  data () {
-    return {
-      favorites: []
-    }
-  },
-  mounted () {
-    this.$axios
-      .get('/grocery?favorite=1')
-      .then(response => (this.favorites = response.data))
   }
 }
 </script>

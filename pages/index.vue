@@ -15,10 +15,12 @@
         <v-col
           v-for="product in products"
           :key="product.id"
-          cols="4"
+          cols="12"
+          md="3"
         >
           <Product
             :product="product"
+            @reload="reload"
           />
         </v-col>
       </v-row>
@@ -42,6 +44,13 @@ export default {
     this.$axios
       .get('/grocery')
       .then(response => (this.products = response.data))
+  },
+  methods: {
+    async reload() {
+      await this.$axios
+        .get('/grocery')
+        .then(response => (this.products = response.data))
+    }
   }
 }
 </script>

@@ -21,16 +21,17 @@
       </v-row>
     </v-card-text>
     <v-card-actions>
-      <v-btn>
+      <v-btn
+        icon
+      >
         <span>{{ product.stock }}</span>
         <v-icon>{{ product.stock > 0 ? 'mdi-cart-outline': 'mdi-cart-off' }}</v-icon>
       </v-btn>
       <v-spacer></v-spacer>
-
-      <v-btn icon color="red">
+      <v-btn icon color="red" @click="changeFavorite">
         <v-icon>{{ product.favorite ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon @click="() => $store.dispatch('addCart', product)">
         <v-icon>{{ product.stock > 0 ? 'mdi-cart-plus' : 'mdi-cart-off' }}</v-icon>
       </v-btn>
     </v-card-actions>
@@ -56,14 +57,12 @@ export default {
 
   },
   methods: {
-    show () {
-      this.isOpened = true
-    },
-    ok () {
-      this.hide()
-    },
-    hide () {
-      this.isOpened = false
+    async changeFavorite() {
+      await this.$axios
+        .patch(`/grocery/${this.product.id}`, { favorite: this.product.favorite ? 0 : 1 })
+        .then((response) => {
+          this.$emit('reload')
+        })
     }
   }
 }
