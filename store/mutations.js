@@ -1,20 +1,31 @@
 export default {
   increment(state) {
-    state.amount++
+    state.count++
+  },
+  decrement(state) {
+    state.count--
   },
   addProduct(state, product) {
-    if (state.cart[product.id]) {
-      state.cart[product.id].amount++
+    const newObject = JSON.parse(JSON.stringify(state.cart))
+    const id = product.id
+    if (newObject[id]) {
+      newObject[id].amount++
     } else {
-      state.cart[product.id] = {
+      newObject[id] = {
         amount: 1,
         element: product
       }
     }
+    state.cart = JSON.parse(JSON.stringify(newObject))
+    state.amount += product.price
   },
-  removeProduct(state, index) {
-    // this.deploymentElements.splice(index, 1)
-    state.cart.splice(index, 1)
+  removeProduct(state, product) {
+    if (state.cart[product.id] && state.cart[product.id].amount === 1) {
+      delete state.cart[product.id]
+    } else {
+      state.cart[product.id].amount--
+    }
+    state.amount -= product.price
   },
   clearCart(state) {
     state.cart = []

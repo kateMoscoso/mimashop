@@ -5,6 +5,7 @@ export default {
   },
   removeProduct(vuexContent, index) {
     vuexContent.commit('removeProduct', index)
+    vuexContent.commit('decrement')
   },
   clearCart(vuexContent) {
     vuexContent.commit('clearCart')

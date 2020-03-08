@@ -17,7 +17,7 @@
         icon
         @click.stop="reloadCart"
       >
-        {{ $store.state.amount }}
+        {{ $store.state.count }}
         <v-icon>mdi-cart</v-icon>
       </v-btn>
       <v-btn
@@ -54,7 +54,10 @@
       temporary
       app
     >
-      <list-cart />
+      <list-cart v-if="$store.state.amount > 0" />
+      <div v-else>
+        Empty
+      </div>
     </v-navigation-drawer>
     <v-footer
       :fixed="fixed"

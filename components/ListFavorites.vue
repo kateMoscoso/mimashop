@@ -1,13 +1,13 @@
 <template>
   <v-list dense three-line>
-    <v-template
+    <div
       v-for="favorite in favorites"
       :key="favorite.id"
     >
       <favorite
         :favorite="favorite"
       />
-    </v-template>
+    </div>
   </v-list>
 </template>
 <script>

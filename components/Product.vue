@@ -32,7 +32,7 @@
         <v-icon>{{ product.favorite ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
       <v-btn icon @click="() => $store.dispatch('addCart', product)">
-        <v-icon>{{ product.stock > 0 ? 'mdi-cart-plus' : 'mdi-cart-off' }}</v-icon>
+        <v-icon>{{ isAvailable ? 'mdi-cart-plus' : 'mdi-cart-off' }}</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -54,7 +54,11 @@ export default {
     }
   },
   computed: {
-
+    isAvailable() {
+      return this.product.stock > 0 &&
+      (!this.$store.state.cart[this.product.id] ||
+        this.product.stock > this.$store.state.cart[this.product.id].amount)
+    }
   },
   methods: {
     async changeFavorite() {

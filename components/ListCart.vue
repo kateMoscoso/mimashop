@@ -5,15 +5,26 @@
     </v-subheader>
     <v-divider></v-divider>
     <v-list dense three-line>
-      <v-template
+      <div
         v-for="product in $store.state.cart"
         :key="product.id"
       >
         <CartElement
-          :product="product"
+          :product.sync="product"
         />
-      </v-template>
+      </div>
     </v-list>
+    <v-row justify="center">
+      <v-col sm="9">
+        <v-btn color="success" dark>
+          Checkout
+          <v-icon x-small>
+            mdi-check
+          </v-icon>
+        </v-btn>
+        {{ $store.state.amount }} €
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>

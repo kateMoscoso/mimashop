@@ -5,5 +5,8 @@ export default {
   },
   amount(state) {
     return state.amount
+  },
+  count(state) {
+    return state.count
   }
 }

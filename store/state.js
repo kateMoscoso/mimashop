@@ -1,5 +1,6 @@
 export default () => ({
   cart: {
   },
-  amount: 0
+  amount: 0,
+  count: 0
 })

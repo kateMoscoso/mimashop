@@ -9,15 +9,27 @@
     <v-list-item-content class="ma-3">
       <v-list-item-title v-text="product.element.productName"></v-list-item-title>
       <div>
-        <v-btn text x-small class="d-inline pa-1  ">
+        <v-btn
+          :disabled="product.amount >= product.element.stock "
+          text
+          x-small
+          class="d-inline pa-1"
+          @click="() => $store.dispatch('addCart', product.element)"
+        >
           <v-icon x-small>
             mdi-plus
           </v-icon>
         </v-btn>
         <div class="d-inline pa-1 accent-4 ">
-          0
+          {{ product.amount }}
         </div>
-        <v-btn text x-small class="d-inline pa-1  ">
+        <v-btn
+
+          text
+          x-small
+          class="d-inline pa-1"
+          @click="() => $store.dispatch('removeProduct', product.element)"
+        >
           <v-icon x-small>
             mdi-minus
           </v-icon>
@@ -40,17 +52,10 @@ export default {
       default: () => ({})
     }
   },
-  data () {
-    return {
-      isOpened: false
-    }
-  },
-  computed: {
-
-  },
-  methods: {
-    removeElement () {
-      console.log('remove')
+  watch: {
+    'product.amount': {
+      handler (newVal, oldVal) {
+      }
     }
   }
 }
