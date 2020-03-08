@@ -1,20 +1,14 @@
 <template>
-  <div>
-    <v-subheader>
-      Favorites
-    </v-subheader>
-    <v-divider></v-divider>
-    <v-list>
-      <v-list-item
-        v-for="favorite in favorites"
-        :key="favorite.id"
-      >
-        <favorite
-          :favorite="favorite"
-        />
-      </v-list-item>
-    </v-list>
-  </div>
+  <v-list dense three-line>
+    <v-template
+      v-for="favorite in favorites"
+      :key="favorite.id"
+    >
+      <favorite
+        :favorite="favorite"
+      />
+    </v-template>
+  </v-list>
 </template>
 <script>
 import Favorite from '~/components/Favorite'

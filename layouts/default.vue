@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-app-bar
-      :clipped-left="clipped"
       fixed
       app
     >
@@ -12,15 +11,11 @@
       >
         <v-icon>mdi-home</v-icon>
       </v-btn>
-      <v-toolbar-title
-        v-text="title"
-      />
-
+      <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn
         icon
-        to="/shopping_cart"
-        nuxt
+        @click.stop="reloadCart"
       >
         {{ $store.state.amount }}
         <v-icon>mdi-cart</v-icon>
@@ -38,14 +33,28 @@
       </v-container>
     </v-content>
     <v-navigation-drawer
-      v-model="rightDrawer"
+      v-model="favoritesDrawer"
       :right="right"
       temporary
       fixed
+      width="25%"
     >
+      <v-subheader>
+        Favorites
+      </v-subheader>
+      <v-divider></v-divider>
       <list-favorites
         :favorites.sync="favorites"
       />
+    </v-navigation-drawer>
+    <v-navigation-drawer
+      v-model="cartDrawer"
+      width="25%"
+      :right="right"
+      temporary
+      app
+    >
+      <list-cart />
     </v-navigation-drawer>
     <v-footer
       :fixed="fixed"
@@ -58,17 +67,20 @@
 
 <script>
 import ListFavorites from '~/components/ListFavorites'
+import ListCart from '~/components/ListCart'
 
 export default {
   components: {
-    ListFavorites
+    ListFavorites,
+    ListCart
   },
   data () {
     return {
       clipped: false,
       fixed: false,
       right: true,
-      rightDrawer: false,
+      favoritesDrawer: false,
+      cartDrawer: false,
       title: 'Mimashop',
       favorites: []
     }
@@ -80,10 +92,13 @@ export default {
     reload() {
       console.log('reload')
       this.findFavorites()
-      this.rightDrawer = !this.rightDrawer
+      this.favoritesDrawer = !this.favoritesDrawer
+    },
+    reloadCart() {
+      this.cartDrawer = !this.cartDrawer
+      this.clipped = !this.clipped
     },
     async findFavorites() {
-      console.log('reload')
       await this.$axios
         .get('/grocery?favorite=1')
         .then(response => (this.favorites = response.data))
