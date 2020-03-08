@@ -1,4 +1,6 @@
 export default () => ({
-  cart: {},
+  cart: {
+
+  },
   amount: 0
 })
