@@ -3,6 +3,7 @@
 ## How to start?
 
 * Download dependencies
+
 `yarn install`
 
 or 

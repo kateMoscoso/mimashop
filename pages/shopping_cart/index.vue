@@ -4,31 +4,19 @@
     justify-center
     align-center
   >
-    <v-flex
-      v-for="product in $store.state.cart"
-      :key="product.id"
-      xs12
-      sm8
-      md6
-    >
-      <CartElement
-        :product="product"
-      />
-    </v-flex>
+    <list-cart v-if="$store.state.amount > 0" />
+    <div v-else>
+      Empty
+    </div>
   </v-layout>
 </template>
 
 <script>
-import CartElement from '~/components/CartElement'
+import ListCart from '~/components/ListCart'
 
 export default {
   components: {
-    CartElement
-  },
-  data () {
-    return {
-      products: []
-    }
+    ListCart
   }
 }
 </script>

@@ -14,6 +14,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-btn
+        class="d-none d-lg-block"
         icon
         @click.stop="reloadCart"
       >
@@ -21,6 +22,16 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
       <v-btn
+        class="d-lg-none"
+        icon
+        to="/shopping_cart"
+        nuxt
+      >
+        {{ $store.state.count }}
+        <v-icon>mdi-cart</v-icon>
+      </v-btn>
+      <v-btn
+        class="d-none d-lg-block"
         icon
         @click.stop="reload"
       >
@@ -34,6 +45,7 @@
     </v-content>
     <v-navigation-drawer
       v-model="favoritesDrawer"
+      class="d-none d-lg-block"
       :right="right"
       temporary
       fixed
@@ -49,6 +61,7 @@
     </v-navigation-drawer>
     <v-navigation-drawer
       v-model="cartDrawer"
+      class="d-none d-lg-block"
       width="25%"
       :right="right"
       temporary
@@ -93,7 +106,6 @@ export default {
   },
   methods: {
     reload() {
-      console.log('reload')
       this.findFavorites()
       this.favoritesDrawer = !this.favoritesDrawer
     },
